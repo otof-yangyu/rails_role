@@ -1,8 +1,11 @@
 # frozen_string_literal: true
+module ActionView::Helpers::UrlHelper
+  alias_method :original_link_to, :link_to
+end
 
 module RailsRole::LinkHelper
-
   def link_to(name = nil, options = {}, html_options = {}, &block)
+    Rails.logger.debug 'decorated version of link_to is called'
     if block_given?
       _options = name
       _html_options = options
@@ -17,6 +20,8 @@ module RailsRole::LinkHelper
       ERB::Util.html_escape(name)
     end
   end
+
+  alias_method :link_to_if_permitted,:link_to
   
   def role_permit?(_options, _html_options)
     if _options.is_a? String
