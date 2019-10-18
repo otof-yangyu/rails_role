@@ -5,7 +5,6 @@ end
 
 module RailsRole::LinkHelper
   def link_to(name = nil, options = {}, html_options = {}, &block)
-    Rails.logger.debug 'decorated version of link_to is called'
     if block_given?
       _options = name
       _html_options = options
